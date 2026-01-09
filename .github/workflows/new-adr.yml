@@ -52,12 +52,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BODY="This PR contains a draft ADR generated via adr-tools.
-
-Edit the document in GitHub to complete:
-- Context
-- Decision
-- Consequences"
-
-          gh pr create --base main --head "$BRANCH" --title "ADR: $ADR_TITLE" --body "$BODY"
+          gh pr create --base main --head "$BRANCH" --title "ADR: $ADR_TITLE"
 
