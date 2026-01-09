@@ -22,7 +22,8 @@ jobs:
       - name: Install adr-tools
         run: |
           git clone https://github.com/npryce/adr-tools.git
-          sudo mv adr-tools/src/adr /usr/local/bin/adr
+          sudo cp -r adr-tools/src/* /usr/local/bin/
+          sudo chmod +x /usr/local/bin/adr*
 
       - name: Create branch
         run: |
