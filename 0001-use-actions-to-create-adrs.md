@@ -8,12 +8,12 @@ Accepted
 
 ## Context
 
-The issue motivating this decision, and any context that influences or constrains the decision.
+We can leverage the adr-tools cli tool to create consistent ADRs with the same format and naming conventions. We can do this directly from github actions and then, if desired, the developer can just edit them within github.
 
 ## Decision
 
-The change that we're proposing or have agreed to implement.
+Use adr-tools for formatting. Add a github action to do this.
 
 ## Consequences
 
-What becomes easier or more difficult to do and any risks introduced by the change that will need to be mitigated.
+Bit of a different workflow, but there's no reason you can't copy existing ADRs or run adr-tools locally if desired.
