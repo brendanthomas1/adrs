@@ -50,15 +50,19 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          BODY=$(cat <<'EOF'
+This PR contains a draft ADR generated via adr-tools.
+
+Edit the document in GitHub to complete:
+- Context
+- Decision
+- Consequences
+EOF
+          )
+
           gh pr create \
             --base main \
             --head "$BRANCH" \
             --title "ADR: ${{ github.event.inputs.title }}" \
-            --body "This PR contains a draft ADR generated via adr-tools.
-
-      Edit the document in GitHub to complete:
-      - Context
-      - Decision
-      - Consequences"
-
+            --body "$BODY"
 
