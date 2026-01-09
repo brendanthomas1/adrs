@@ -1,0 +1,60 @@
+name: Create new ADR
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "ADR title (e.g. 'Use Redis for caching')"
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-adr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install adr-tools
+        run: |
+          git clone https://github.com/npryce/adr-tools.git
+          sudo mv adr-tools/src/adr /usr/local/bin/adr
+
+      - name: Create branch
+        run: |
+          BRANCH="adr/$(date +%Y%m%d%H%M%S)"
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+          git checkout -b "$BRANCH"
+
+      - name: Generate ADR
+        run: |
+          adr new "${{ github.event.inputs.title }}"
+
+      - name: Commit ADR
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "ADR: ${{ github.event.inputs.title }}"
+
+      - name: Push branch
+        run: |
+          git push origin "$BRANCH"
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: ${{ env.BRANCH }}
+          title: "ADR: ${{ github.event.inputs.title }}"
+          body: |
+            This PR contains a draft ADR generated via adr-tools.
+
+            Edit the document in GitHub to complete:
+            - Context
+            - Decision
+            - Consequences
+
