@@ -15,4 +15,4 @@
 
 ---
 
-4. Profit 💰
+4. Fetch your branch or edit the ADR directly in github
