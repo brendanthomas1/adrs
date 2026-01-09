@@ -57,9 +57,5 @@ Edit the document in GitHub to complete:
 - Decision
 - Consequences"
 
-          gh pr create \
-            --base main \
-            --head "$BRANCH" \
-            --title "ADR: ${{ github.event.inputs.title }}" \
-            --body "$BODY"
+          gh pr create --base main --head "$BRANCH" --title "ADR: ${{ github.event.inputs.title }}" --body "$BODY"
 
