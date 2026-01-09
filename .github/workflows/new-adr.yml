@@ -52,5 +52,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr create --base main --head "$BRANCH" --title "ADR: $ADR_TITLE"
+          gh pr create --base main --head "$BRANCH" --title "ADR: $ADR_TITLE" --body "ADR: $ADR_TITLE"
 
