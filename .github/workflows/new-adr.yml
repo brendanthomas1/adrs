@@ -46,16 +46,19 @@ jobs:
         run: |
           git push origin "$BRANCH"
 
-      - name: Open pull request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          branch: ${{ env.BRANCH }}
-          title: "ADR: ${{ github.event.inputs.title }}"
-          body: |
-            This PR contains a draft ADR generated via adr-tools.
+      - name: Create pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "ADR: ${{ github.event.inputs.title }}" \
+            --body "This PR contains a draft ADR generated via adr-tools.
 
-            Edit the document in GitHub to complete:
-            - Context
-            - Decision
-            - Consequences
+      Edit the document in GitHub to complete:
+      - Context
+      - Decision
+      - Consequences"
+
 
